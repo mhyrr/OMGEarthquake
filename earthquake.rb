@@ -41,15 +41,15 @@ while(1) do
 
 	now = Time.now
 
-	puts date.to_s
-	puts now.strftime("%A %B %d %Y %H:%M:%S %Z")
+	#puts date.to_s
+	#puts now.strftime("%A %B %d %Y %H:%M:%S %Z")
 
 	puts now - date
 
-	if (now - date < 7200)
-		puts "wow! earthquake within two hours!"
+	if (now - date < 60)
+		puts "###############################\n#\nwow! earthquake within the last minute!\n#\n################################"
 	end
 
-	sleep 10
+	sleep 60
 
 end
