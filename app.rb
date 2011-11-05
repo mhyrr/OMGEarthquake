@@ -2,25 +2,14 @@ require 'bundler/setup'
 require 'sinatra'
 require 'mongo_mapper'
 require 'mustache/sinatra'
-
+require 'earthquake'
 
 MongoMapper.database = 'omgearthquake'
 
-class Earthquake
-  include MongoMapper::Document
 
-  key :id, String
-  key :time, String
-  key :lat, Float
-  key :long, Float
-  key :magnitude, Float
-  key :region, String
-
-  timestamps!
-end
-
-class App < Sinatra::Base
   get '/' do
-    'hello world'
+
+	quakes = Earthquake.all
+	quakes.map {|eq| eq.eqid }.inspect
+
   end
-end
