@@ -6,10 +6,9 @@ require 'earthquake'
 
 MongoMapper.database = 'omgearthquake'
 
-
-  get '/' do
+get '/' do
 
 	quakes = Earthquake.all
 	quakes.map {|eq| eq.eqid }.inspect
 
-  end
+end

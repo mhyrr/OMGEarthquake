@@ -3,6 +3,8 @@ require 'date'
 require 'time'
 require 'earthquake'
 require 'mongo_mapper'
+require 'twitter'
+require 'yaml'
 
 ## From O'Reilly's Ruby Cookbook
 class Date
@@ -24,7 +26,19 @@ class Date
 end
 
 def twitterize(eq)
-	puts "to the cloud"
+
+	yaml = YAML::load(File.open("config/oauth-credentials"))
+
+	Twitter.configure do |config|
+	  config.consumer_key = yaml['consumer_key']
+	  config.consumer_secret = yaml['consumer_secret']
+	  config.oauth_token = yaml['oauth_token']
+	  config.oauth_token_secret = yaml['oauth_token_secret']
+	end
+
+	client = Twitter::Client.new
+	client.update(eq.to_twitter)
+
 end
 
 job 'usgs.curl' do
@@ -39,15 +53,15 @@ job 'usgs.curl' do
 
 		arr = line.split(",")
 
-		if Earthquake.all(:eqid => (arr[1])).empty?
+		if Earthquake.all(:eqid => (arr[1])).empty? or arr[8] == "0.0"
 
 			eq = Earthquake.new
 			eq.eqid = arr[1]
 			eq.time = (arr[3] + arr[4] + arr[5]).gsub("\"", "")
 			eq.lat = arr[6]
 			eq.long = arr[7]
-			eq.digraph = arr[0]
-			eq.region = arr[11]
+			eq.digraph = arr[0].gsub("\"", "")
+			eq.region = arr[11].gsub("\"", "").strip!
 			eq.magnitude = arr[8]
 
 			puts "Saving new earthquake: #{eq.eqid}"
