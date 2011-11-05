@@ -4,7 +4,6 @@ require 'time'
 require 'earthquake'
 require 'mongo_mapper'
 require 'twitter'
-require 'yaml'
 
 ## From O'Reilly's Ruby Cookbook
 class Date
