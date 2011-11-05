@@ -27,17 +27,19 @@ end
 
 def twitterize(eq)
 
-	yaml = YAML::load(File.open("config/oauth-credentials"))
-
 	Twitter.configure do |config|
-	  config.consumer_key = yaml['consumer_key']
-	  config.consumer_secret = yaml['consumer_secret']
-	  config.oauth_token = yaml['oauth_token']
-	  config.oauth_token_secret = yaml['oauth_token_secret']
+	  config.consumer_key = ENV['CONSUMER_KEY']
+	  config.consumer_secret = ENV['CONSUMER_SECRET']
+	  config.oauth_token = ENV['OAUTH_TOKEN']
+	  config.oauth_token_secret = ENV['OAUTH_TOKEN_SECRET']
 	end
 
 	client = Twitter::Client.new
-	client.update(eq.to_twitter)
+	begin
+		client.update(eq.to_twitter)
+	rescue Twitter::Forbidden
+		puts "Duplicate tweet..skipping."
+	end
 
 end
 
@@ -61,14 +63,14 @@ job 'usgs.curl' do
 			eq.lat = arr[6]
 			eq.long = arr[7]
 			eq.digraph = arr[0].gsub("\"", "")
-			eq.region = arr[11].gsub("\"", "").strip!
+			eq.region = arr.length > 12 ? (arr[11] + "," + arr[12]).gsub("\"", "").strip! : arr[11].gsub("\"", "").strip!
 			eq.magnitude = arr[8]
 
 			puts "Saving new earthquake: #{eq.eqid}"
 
 			eq.save
 
-			twitterize(eq)
+			twitterize(eq) #if eq.magnitude > 3.0
 
 		end
 

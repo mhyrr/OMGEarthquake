@@ -4,7 +4,11 @@ class Earthquake
   include MongoMapper::Document
 
   def to_twitter
-	"#{magnitude} earthquake in #{region}!  USGS link: http://earthquake.usgs.gov/earthquakes/recenteqsus/Quakes/#{digraph}#{eqid}.php"
+  	if magnitude > 5
+		"Wow! #{magnitude} earthquake in #{region}!  USGS link: http://earthquake.usgs.gov/earthquakes/recenteqsus/Quakes/#{digraph}#{eqid}.php"
+  	else
+		"#{magnitude} earthquake in #{region}!  USGS link: http://earthquake.usgs.gov/earthquakes/recenteqsus/Quakes/#{digraph}#{eqid}.php"
+	end
   end
 
 
