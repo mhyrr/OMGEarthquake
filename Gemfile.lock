@@ -10,7 +10,6 @@ GEM
     addressable (2.2.6)
     beanstalk-client (1.1.1)
     bson (1.4.1)
-    bson_ext (1.4.0)
     builder (3.0.0)
     clockwork (0.3.1)
     curb (0.7.15)
@@ -59,7 +58,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  bson_ext (= 1.4.0)
   clockwork
   curb
   mongo_mapper
