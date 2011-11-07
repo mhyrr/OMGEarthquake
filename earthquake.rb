@@ -7,7 +7,7 @@ class Earthquake
   	if magnitude > 5
 		"Wow! #{magnitude} earthquake in #{region}!  USGS link: http://earthquake.usgs.gov/earthquakes/recenteqsus/Quakes/#{digraph}#{eqid}.php"
   	else
-		"#{magnitude} earthquake in #{region}!  USGS link: http://earthquake.usgs.gov/earthquakes/recenteqsus/Quakes/#{digraph}#{eqid}.php"
+		"#{magnitude} earthquake in #{region}.. USGS link: http://earthquake.usgs.gov/earthquakes/recenteqsus/Quakes/#{digraph}#{eqid}.php"
 	end
   end
 

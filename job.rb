@@ -54,7 +54,7 @@ job 'usgs.curl' do
 
 		arr = line.split(",")
 
-		if Earthquake.all(:eqid => (arr[1])).empty? or arr[8] == "0.0"
+		if Earthquake.all(:eqid => (arr[1])).empty? and !(arr[8] == "0.0")
 
 			eq = Earthquake.new
 			eq.eqid = arr[1]
@@ -69,7 +69,7 @@ job 'usgs.curl' do
 
 			eq.save
 
-			twitterize(eq) #if eq.magnitude > 3.0
+			twitterize(eq) if eq.magnitude > 2.0
 
 		end
 
