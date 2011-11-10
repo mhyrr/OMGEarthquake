@@ -4,11 +4,11 @@ class Earthquake
   include MongoMapper::Document
 
   def to_twitter
-  	if magnitude > 5
-		"Wow! #{magnitude} earthquake in #{region}!  USGS link: http://earthquake.usgs.gov/earthquakes/recenteqsus/Quakes/#{digraph}#{eqid}.php"
-  	else
-		"#{magnitude} earthquake in #{region}.. USGS link: http://earthquake.usgs.gov/earthquakes/recenteqsus/Quakes/#{digraph}#{eqid}.php"
-	end
+
+  	usgs_link = "USGS link: http://earthquake.usgs.gov/earthquakes/recenteqsus/Quakes/#{digraph}#{eqid}.php"
+
+	(magnitude >= 5 ? "Wow! " : "") << magnitude.to_s << " earthquake " << (region.match(/^off|^near|^south |^north |^east|^west /) ? "" : "in ") << region << " - " << usgs_link << "#earthquake #quake"
+
   end
 
 

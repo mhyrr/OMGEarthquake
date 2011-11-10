@@ -69,7 +69,7 @@ job 'usgs.curl' do
 
 			eq.save
 
-			twitterize(eq) if eq.magnitude > 2.0
+			twitterize(eq) if eq.magnitude > 2.5
 
 		end
 
