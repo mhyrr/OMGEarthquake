@@ -1,0 +1,1 @@
+Simple project to play a bit.  Polls USGS earthquake data, stores it in a simple Mongo instance and posts new quakes up to a twitter account.
