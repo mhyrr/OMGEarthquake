@@ -1,1 +1,3 @@
 Simple project to play a bit.  Polls USGS earthquake data, stores it in a simple Mongo instance and posts new quakes up to a twitter account.
+
+To use with the Procfile install the foreman gem and run with foreman start.
